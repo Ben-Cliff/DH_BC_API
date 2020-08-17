@@ -1,8 +1,17 @@
-from alpha_vantage.timeseries import TimeSeries
-import matplotlib.pyplot as plt
+'''
+Background:
+- Retrieve the historical time series data.
+- Use the endpoint for the "Daily Digital & Crypto Currencies", 
+        = specifying as symbol ‘BTC’ 
+        = market is ‘USD’.
+- Focus on the "close" price.
 
-ts = TimeSeries(key='KGH6EZ2AMHG8JO14', output_format='pandas')
-data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
-data['4. close'].plot()
-plt.title('Intraday Times Series for the MSFT stock (1 min)')
-plt.show()
+Challenge:
+- Compute the average price of each week (a week starts on a Monday and ends
+on Sunday) and report it.
+- Compute a 3-day and 7-day rolling average and report/visualise the results.
+ api_key= "KGH6EZ2AMHG8JO14"
+
+ source: 
+'''
+
