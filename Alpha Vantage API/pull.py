@@ -50,12 +50,13 @@ df_close['MA_21'] = df_close.BTC_Daily_Close_USD.rolling(21).mean()
 
 #plotting
 
-plt.figure(figsize=(15,20))
+plt.figure(figsize=(50,20))
 plt.grid(True)
 plt.plot(df_close['BTC_Daily_Close_USD'], label ='BTC')
 plt.plot(df_close['MA_7'], label ='MA_7')
 plt.plot(df_close['MA_21'], label ='MA_21')
 plt.legend(loc=2)
+plt.savefig('books_read.png')
 
 
 
