@@ -73,7 +73,7 @@ df_close['weekly_average'] = r
 
 #print(ticker)
 #print(df_close.columns)
-print(df_close[:20])
+print(df_close.tail())
 
 
 
@@ -88,14 +88,34 @@ plt.plot(df_close['MA_7'], label ='MA_7')
 plt.legend(loc=2)
 plt.savefig('output.png')
 '''
-plt.figure(figsize=(50,20))
+
+#defining plot aesthetics
+plt.rcParams.update({'font.size': 30})
+figPres = plt.figure(figsize=(50,20))
+axPres  = figPres.add_subplot(111)
+axPres.yaxis.set_label_coords(-0.05,0.5)
+axPres.xaxis.set_label_coords(0.5,-0.07)
+
+
+
+
+
+
+
 plt.grid(True)
 plt.legend(loc=2)
 plt.scatter(  df_close.index,df_close['weekly_average'],  c='blue', label ='Weekly Averages')
 plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
 plt.plot( df_close.index,df_close['MA_3'], label ='3 day MA')
 plt.plot( df_close.index, df_close['MA_7'], label ='7 day MA' )
+plt.title('MOVING AVERAGE OVER TIME XXXXXXXXXX', loc='center',   )
 plt.legend(  prop={'size': 30})
+plt.ylabel('Value of Bitcoin (USD)')
+plt.xlabel('Time')
+
+
+
+
 plt.savefig('output.png')
 
 
