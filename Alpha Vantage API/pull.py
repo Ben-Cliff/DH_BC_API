@@ -7,6 +7,13 @@ https://www.youtube.com/watch?v=JJO9fKj3_u4
 https://www.youtube.com/watch?v=T2mQiesnx8s
 https://www.youtube.com/watch?v=T2mQiesnx8s
 
+
+Best practice
+https://www.codementor.io/@satwikkansal/python-practices-for-efficient-code-performance-memory-and-usability-aze6oiq65
+doc string https://www.youtube.com/watch?v=WOKxejxWJB4
+
+
+
 '''
 
 import pandas as pd
@@ -44,8 +51,9 @@ df_close.columns = ['BTC_Daily_Close_USD']
 
 
 #create 7 & 21 day rolling average
+df_close['MA_3'] = df_close.BTC_Daily_Close_USD.rolling(3).mean()
 df_close['MA_7'] = df_close.BTC_Daily_Close_USD.rolling(7).mean()
-df_close['MA_21'] = df_close.BTC_Daily_Close_USD.rolling(21).mean()
+
 
 
 #plotting
@@ -53,19 +61,26 @@ df_close['MA_21'] = df_close.BTC_Daily_Close_USD.rolling(21).mean()
 plt.figure(figsize=(50,20))
 plt.grid(True)
 plt.plot(df_close['BTC_Daily_Close_USD'], label ='BTC')
+plt.plot(df_close['MA_3'], label ='MA_3')
 plt.plot(df_close['MA_7'], label ='MA_7')
-plt.plot(df_close['MA_21'], label ='MA_21')
+
 plt.legend(loc=2)
-plt.savefig('books_read.png')
+plt.savefig('output.png')
 
 
 
+#drop the two last values so dataset starts on monday
+df_test = df_close[['BTC_Daily_Close_USD']]
+df_test =df_test[:-2]
+#df_test['Date'] = df_test.index
 
+#df_test['Date'] = pd.to_datetime(df_test['Date'])
 
+#r = df_test.set_index('Date').groupby(pd.TimeGrouper('6M')).sum()
+r = df_test.groupby(pd.Grouper(freq='W')).mean()
+df_close['weekly_average'] = r
 
+#print(ticker)
+#print(df_close.columns)
+print(df_close.head)
 
-
-
-print(ticker)
-print(df_close.columns)
-print(df_close)
