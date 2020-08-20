@@ -56,16 +56,7 @@ df_close['MA_7'] = df_close.BTC_Daily_Close_USD.rolling(7).mean()
 
 
 
-#plotting
 
-plt.figure(figsize=(50,20))
-plt.grid(True)
-plt.plot(df_close['BTC_Daily_Close_USD'], label ='BTC')
-plt.plot(df_close['MA_3'], label ='MA_3')
-plt.plot(df_close['MA_7'], label ='MA_7')
-
-plt.legend(loc=2)
-plt.savefig('output.png')
 
 
 
@@ -82,5 +73,29 @@ df_close['weekly_average'] = r
 
 #print(ticker)
 #print(df_close.columns)
-print(df_close.head)
+print(df_close[:20])
+
+
+
+#plotting
+'''
+plt.figure(figsize=(50,20))
+plt.grid(True)
+plt.scatter(df_close['weekly_average'], df_close.index, c='blue')
+plt.plot(df_close['BTC_Daily_Close_USD'], label ='BTC')
+plt.plot(df_close['MA_3'], label ='MA_3')
+plt.plot(df_close['MA_7'], label ='MA_7')
+plt.legend(loc=2)
+plt.savefig('output.png')
+'''
+plt.figure(figsize=(50,20))
+plt.grid(True)
+plt.legend(loc=2)
+plt.scatter(  df_close.index,df_close['weekly_average'],  c='blue', label ='Weekly Averages')
+plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
+plt.plot( df_close.index,df_close['MA_3'], label ='3 day MA')
+plt.plot( df_close.index, df_close['MA_7'], label ='7 day MA' )
+plt.legend(  prop={'size': 30})
+plt.savefig('output.png')
+
 
