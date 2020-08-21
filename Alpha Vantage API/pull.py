@@ -1,74 +1,74 @@
-#!/usr/bin/python
-# 
-'''
-sources 
-https://www.youtube.com/watch?v=339AfkUQ67o
-https://www.youtube.com/watch?v=JJO9fKj3_u4
-https://www.youtube.com/watch?v=T2mQiesnx8s
-https://www.youtube.com/watch?v=T2mQiesnx8s
-
-
-Best practice
-https://www.codementor.io/@satwikkansal/python-practices-for-efficient-code-performance-memory-and-usability-aze6oiq65
-doc string https://www.youtube.com/watch?v=WOKxejxWJB4
-
-
-
-'''
 
 import pandas as pd
-import numpy as np
 from alpha_vantage.cryptocurrencies import CryptoCurrencies
-import sys
+#import sys
 import random
 
 #Variables
-ticker = str(sys.argv[1])
-mrkt = 'USD'
-
-
-#multiple keys allow for higher rate of access to requests from free tier accounts
+# ticker = str(sys.argv[1]) will extend functionality to take other crypto currency inputs 
+ticker = 'BTC'
+market = 'USD'
+#Allow the use of multiple keys
 lines = open('keys').read().splitlines()
 keys = random.choice(lines)
 
+
+#Define function to pull data
+def alphaPull(keys,market, ticker):
+    """
+    This function takes in a valid Alpha Vantage API key, market symbol (eg. USD) 
+    and Crypto commodity symbol (eg. BTC).
+    It returns a time series database measuring daily closing values.
+    Get a valid key here https://www.alphavantage.co/support/#api-key and paste it into ./keys
+    """
+    time= CryptoCurrencies(key=keys, output_format = 'pandas')
+    data_ts , meta_data_ts = time.get_digital_currency_daily(symbol = ticker , market =market )
+
+    #pulling closing values from time series 
+    df_crypto_close = pd.DataFrame(data_ts.iloc[:, 2])
+    #renaming column
+    df_crypto_close.columns = ['BTC_Daily_Close_USD']
+    return(df_crypto_close)
+
+
+
+
+try:
+    df_close = alphaPull(11 ,market, ticker )
+except Exception as e: 
+    print('The following error has occured:\n '+ e + '\nPlease delete all values in key folder and follow the above link to recieve a new API key from Alpha Vantage' )
+finally:
+    quit()
+
+ #   pass
 #pull data
-time= CryptoCurrencies(key=keys, output_format = 'pandas')
-data_ts , meta_data_ts = time.get_digital_currency_daily(symbol = ticker , market =mrkt )
 
 
+#Task
+#Compute a 3-day and 7-day rolling average and report/visualise the results.
 
-
-#pulling closing values from time series 
-#df_close = data_ts['4b. close (USD)']
-df_close = pd.DataFrame(data_ts.iloc[:, 2])
-
-
-#renaming column
-df_close.columns = ['BTC_Daily_Close_USD']
-
-
-#create 3 & 7 day rolling average
+# create 3 & 7 day rolling average
 df_close['MA_3'] = df_close.BTC_Daily_Close_USD.rolling(3).mean()
 df_close['MA_7'] = df_close.BTC_Daily_Close_USD.rolling(7).mean()
 
 
-
-
-
-
+#Task
+#Compute the average price of each week (a week starts on a Monday and ends
+#on Sunday) and report it
 
 #drop the two last values so dataset starts on monday
-df_test = df_close[['BTC_Daily_Close_USD']]
-df_test =df_test[:-2]
-#df_test['Date'] = df_test.index
+df_temp = df_close[['BTC_Daily_Close_USD']]
+df_temp =df_temp[:-2]
 
-#df_test['Date'] = pd.to_datetime(df_test['Date'])
+#Calculate weekly average
+weekAvg = df_temp.groupby(pd.Grouper(freq='W')).mean()
+df_close['weekly_average'] = weekAvg
 
-#r = df_test.set_index('Date').groupby(pd.TimeGrouper('6M')).sum()
-r = df_test.groupby(pd.Grouper(freq='W')).mean()
-df_close['weekly_average'] = r
+#output dataset
+df_close.to_csv('BTC_Alpha.csv' ,index_label='date')
+print(keys)
 
-df_close.to_csv('BTC_Alpha.csv')
+
 
 
 

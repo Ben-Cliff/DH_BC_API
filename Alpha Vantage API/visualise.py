@@ -1,9 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df_close = pd.read_csv("./BTC_Alpha.csv")
+try:
+    df_close = pd.read_csv("./BTC_Alpha.csv")
+except FileNotFoundError:
+    print('ERROR: Please run $ python pull.py in the current directory to pull crypto currency data from Alpha Vantages API')
+finally:
+    quit()
 
-print(df_close.tail)
 
 ###############PLOTTING#######################
 
@@ -13,6 +17,7 @@ figPres = plt.figure(figsize=(50,20))
 axPres  = figPres.add_subplot(111)
 axPres.yaxis.set_label_coords(-0.05,0.5)
 axPres.xaxis.set_label_coords(0.5,-0.07)
+
 #plt.grid(True)
 #plt.legend(loc=2)
 #creating a function to plot three plots
@@ -41,7 +46,7 @@ plt.plot( df_close.index, df_close['MA_7'], label ='7 day MA' )
 #plt.title('Crypto Value + Weekly Averages', loc='center'  )
 plt.legend(  prop={'size': 30})
 plt.subplot(2,2,3)
-plt.scatter( df_close.index,df_close['weekly_average'],  c='blue', label ='Weekly Averages')
+plt.scatter( df_close.index,df_close['weekly_average'],  c='blue', label ='Weekly Closing Averages')
 plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
 plt.xlabel('Time')
 plt.ylabel('Value of Bitcoin (USD)')
@@ -61,4 +66,7 @@ plt.xlabel('Time')
 
 plt.suptitle('Bitcoin Time Seriece Analysis\nSource: Alpha Avantage API')
 plt.savefig('Alpha_API_BTC_Analysis.png')
+
+
+
 
