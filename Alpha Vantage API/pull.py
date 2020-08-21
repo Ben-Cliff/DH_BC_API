@@ -32,17 +32,20 @@ def alphaPull(keys,market, ticker):
 
 
 
+#df_close = alphaPull( 99 ,market, ticker )
 
 try:
-    df_close = alphaPull(11 ,market, ticker )
+    df_close = alphaPull( keys ,market, ticker )
 except Exception as e: 
-    print('The following error has occured:\n '+ e + '\nPlease delete all values in key folder and follow the above link to recieve a new API key from Alpha Vantage' )
-finally:
+    print('ERROR:\n')
+    print(e)
+    print('Note that the following key was used in this attempt:', keys )
+    print('Please delete this above key from the keys folder and the follow the above link to get a new valid key.' )
+    print('\n')
+
+
+    #print('asdas')
     quit()
-
- #   pass
-#pull data
-
 
 #Task
 #Compute a 3-day and 7-day rolling average and report/visualise the results.
@@ -65,10 +68,7 @@ weekAvg = df_temp.groupby(pd.Grouper(freq='W')).mean()
 df_close['weekly_average'] = weekAvg
 
 #output dataset
-df_close.to_csv('BTC_Alpha.csv' ,index_label='date')
-print(keys)
+df_close.to_csv('./Resources/BTC_Alpha.csv' ,index_label='date')
 
-
-
-
-
+print('\n Success! See BTC_Alpha.csv file in the Resources directory. \nThe following key was used in this API call:', keys)
+print('\n')

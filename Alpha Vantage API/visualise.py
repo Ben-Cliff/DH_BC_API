@@ -1,12 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+
 try:
-    df_close = pd.read_csv("./BTC_Alpha.csv")
+    df_close = pd.read_csv("./Resources/BTC_Alpha.csv")
 except FileNotFoundError:
     print('ERROR: Please run $ python pull.py in the current directory to pull crypto currency data from Alpha Vantages API')
-finally:
-    quit()
+    quit()     
 
 
 ###############PLOTTING#######################
@@ -65,7 +66,9 @@ plt.legend(  prop={'size': 30})
 plt.xlabel('Time')
 
 plt.suptitle('Bitcoin Time Seriece Analysis\nSource: Alpha Avantage API')
-plt.savefig('Alpha_API_BTC_Analysis.png')
+plt.savefig('./Resources/Alpha_API_BTC_Analysis.png')
+
+print('\nSuccess! \nSee the Alpha_API_BTC_Analysis.png in Resources. \n')
 
 
 

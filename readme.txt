@@ -3,3 +3,5 @@ https://libzx.so/main/learning/2016/03/13/best-practice-for-virtualenv-and-git-r
 
 
 https://alpha-vantage.readthedocs.io/en/latest/
+
+source /Users/user/Desktop/GitHub/DH_BC_API/myenv/bin/activate
