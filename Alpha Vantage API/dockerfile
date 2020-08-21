@@ -1,0 +1,17 @@
+#FROM  python:3.9.0rc1-buster
+#make a direcotry for current application
+#WORKDIR /Alpha Vantage API 
+
+
+#install dependencies
+#COPY requirements.txt .
+#RUN  pip install -r requirments.txt
+
+
+#copy source code
+#COPY /app .
+
+#run the application
+#CMD [ "python" , "pull.py"]
+
+
