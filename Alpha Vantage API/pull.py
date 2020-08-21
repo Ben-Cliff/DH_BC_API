@@ -19,7 +19,6 @@ doc string https://www.youtube.com/watch?v=WOKxejxWJB4
 import pandas as pd
 import numpy as np
 from alpha_vantage.cryptocurrencies import CryptoCurrencies
-import matplotlib.pyplot as plt
 import sys
 import random
 
@@ -69,68 +68,7 @@ df_test =df_test[:-2]
 r = df_test.groupby(pd.Grouper(freq='W')).mean()
 df_close['weekly_average'] = r
 
-#print(ticker)
-#print(df_close.columns)
-print(df_close.tail())
-
-#defining plot aesthetics
-plt.rcParams.update({'font.size': 30})
-figPres = plt.figure(figsize=(50,20))
-axPres  = figPres.add_subplot(111)
-axPres.yaxis.set_label_coords(-0.05,0.5)
-axPres.xaxis.set_label_coords(0.5,-0.07)
-#plt.grid(True)
-#plt.legend(loc=2)
-#creating a function to plot three plots
+df_close.to_csv('BTC_Alpha.csv')
 
 
-
-
-
-
-
-
-#1
-plt.subplot(2,2,1)
-plt.legend(  prop={'size': 30})
-plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
-#plt.title('Value of Bitcoin over time', loc='center'  )
-
-
-
-#3
-#plt.title('3 & 7 Day Moving Average', loc='center'   )
-plt.legend(  prop={'size': 30})
-plt.ylabel('Value of Bitcoin (USD)')
-plt.subplot(2,2,2)
-plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
-plt.plot( df_close.index,df_close['MA_3'], label ='3 day MA')
-plt.plot( df_close.index, df_close['MA_7'], label ='7 day MA' )
-
-
-#4
-#plt.title('Crypto Value + Weekly Averages', loc='center'  )
-plt.legend(  prop={'size': 30})
-plt.subplot(2,2,3)
-plt.scatter( df_close.index,df_close['weekly_average'],  c='blue', label ='Weekly Averages')
-plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
-plt.xlabel('Time')
-plt.ylabel('Value of Bitcoin (USD)')
-
-
-
-#1
-
-#plt.title('Real Value, Moving Averages & Weekly Averages', loc='center'  )
-plt.legend(  prop={'size': 30})
-plt.subplot(2,2,4)
-plt.scatter( df_close.index,df_close['weekly_average'],  c='blue', label ='Weekly Averages')
-plt.plot( df_close.index,df_close['BTC_Daily_Close_USD'], label ='BTC Value')
-plt.plot( df_close.index,df_close['MA_3'], label ='3 day MA')
-plt.plot( df_close.index, df_close['MA_7'], label ='7 day MA' )
-plt.legend(  prop={'size': 30})
-plt.xlabel('Time')
-
-plt.suptitle('Bitcoin Time Seriece Analysis\nSource: Alpha Avantage API')
-plt.savefig('Alpha_API_BTC_Analysis.png')
 
