@@ -1,7 +1,7 @@
 # Alpha Vantage API 
 
 - Alpha Vantage API & Big Query requests
-> To get started cd in into /DH_BC_API/Alpha Vantage API
+> To get started cd in into /DH_BC_API/Alpha Vantage API/app
 
 ### Step 1: Dependancies
 - See dependancies in requirements.txt
