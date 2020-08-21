@@ -1,12 +1,15 @@
 # Alpha Vantage API 
 
 - Alpha Vantage API & Big Query requests
-> To get started cd in into /DH_BC_API/Alpha Vantage API/app
+> Use case: on the go access and brief analysis of Bitcoin data based off USD market.
+
+To get started 
 
 ### Step 1: Dependancies
-- See dependancies in requirements.txt
+- Install dependencies in requirements.txt
 
 ### Step 2: pull data
+- cd /DH_BC_API/Alpha Vantage API/app
 - $ python pull.py
 
 ### Step 3: visualise results
