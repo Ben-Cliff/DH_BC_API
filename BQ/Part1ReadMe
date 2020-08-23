@@ -1,0 +1,57 @@
+This document serves to explain thoughts I have on each query as well execution details of the queries themselves.
+
+
+1: Question 1.sql
+	*** 6.1 MB processed
+	*** Rows: 1 
+	*** Duration: 0.0 sec
+
+2: Question 2.sql
+	*** 6.1 MB processed
+	*** Rows: 211904
+	*** Duration: 0.0 sec
+
+	The column SessionsPerUser captures how many sessions each user has created
+
+3.
+	*** 279 MB processed
+	*** Rows: 287076
+	*** Duration: 4.1 sec
+
+	Unless this page is shown from when food is delivered, I suspect this query to be incorrect as 30 minutes is too long as an average time.
+
+	I found the following link helpful to understand how time should be handled as this was the first time I had worked with this fomrating
+	https://en.it1352.com/article/ca6ba1e676854568a1a1f35ad6274003.html
+
+	As I was unsure whether this is a correct query or not, I created two queries/dataset:
+		-  Results-Vis-Q3 produces Results-Answer-Q3.csv and attempts to answer the question which is the average time taken to reach the order_confirmation page in one row.
+
+		-  Results-Vis-Q3 produces Results-Vis-Q3.csv and does not use the average function. I created this so I could visualise the data to further understand through visualisation.
+
+4.
+	I broke this problem into two parts:
+	4.1 
+		`Question 4_1 In App Coordinates.sql` produces 4_1_In_App_Coordinates.csv
+		Finds the coordinates captured in order_confirmation and shop_list and calculates if a change of location has occurred.
+		*** 413.1 MB processed
+		*** Rows: 40601
+		*** Duration: 0.0 sec
+
+
+	4.2 `4_2_In_App_Coordinates.sql` produces 4_1_In_App_Coordinates.csv
+		This uses the above table to find, of the users that changed their location or not, has a successful order taken place? Additionally it records if there had been a change of location within the delivery process. 
+		*** 14.6 MB processed
+		*** Rows: 39494
+		*** Duration: 0.0 sec
+
+
+
+Final remarks:
+
+I found the last two questions challenging but incredibly educative in progressing my knowledge of SQL as well as a bootcamp-style introduction to BigQuery and it's nested record structure.
+
+I would highly appreciate any feedback on the structure of my queries, naming conventions, comments as well as remarks as to how to make this code more efficient.
+
+
+
+
