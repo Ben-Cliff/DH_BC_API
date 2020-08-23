@@ -25,6 +25,7 @@ To get started
 
 # Big Query:
 - See DataStudio visualisation of Big Query requests : https://datastudio.google.com/reporting/dec2267e-2194-47cf-a1e8-a45aa6ff2c5a
+- Further explanation contained in Part1ReadMe
 
  
 
