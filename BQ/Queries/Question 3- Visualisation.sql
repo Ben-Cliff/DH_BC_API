@@ -1,4 +1,8 @@
---3 Average time taken to reach the order_confirmation screen per session (in minutes)?
+--1 create a table that focusses on  where cd_unnested.value = 'order_confirmation' 
+--2 capture timestamp at start of session visitStartTime
+--3 caputre time at first hit when session is on order_confirmation page
+--4 subtract time stamps from eachother
+    -- do not average out time to visualise
 
 
 with ga as (
@@ -8,10 +12,12 @@ with ga as (
    visitStartTime,
    hit.type,
    hit.screenName,
-   cd.value,
+   cd_unnested.value,
+   cd_unnested
   from `dhh-analytics-hiringspace.GoogleAnalyticsSample.ga_sessions_export` 
   cross join  UNNEST(hit) as hit
-  cross Join UNNEST(customDimensions) as cd
+  cross Join UNNEST(customDimensions) as cd_unnested
+  where cd_unnested.value = 'order_confirmation' 
   
 ),
 -- Get start of app use
@@ -27,27 +33,18 @@ start as (
 first_app_complete as (
   select
     sessionId,
-    TIMESTAMP_MILLIS(1000 * visitStartTime + hit_ts) as app_complete_ts,
+    TIMESTAMP_MILLIS(1000 * visitStartTime + min(hit_ts)) as order_confirmation_time,
   from ga
-  
-  /*where type = "TRANSACTION"
-  VS
-  where value = "order_confirmation" */
-  
-  --where type = "TRANSACTION"
-  where value = "order_confirmation"
   group by sessionId, visitStartTime, hit_ts
 ),
+
 -- Join it all together and calc differences
 joined as (
   select
-    sessionID,
-    visitStartTime_ts,
-    app_complete_ts,
-    --AVG(Timestamp_diff( app_complete_ts, visitStartTime_ts , minute)) as ts_diff_minutes
-    Timestamp_diff( app_complete_ts, visitStartTime_ts , minute) as ts_diff_minutes
+    --AVG(Timestamp_diff( order_confirmation_time, visitStartTime_ts , minute)) as ts_diff_minutes
+    Timestamp_diff( order_confirmation_time, visitStartTime_ts , minute) as ts_diff_minutes
   from start
   inner join first_app_complete using(sessionID)
 )
 select * from joined
--- select channelGrouping, count(sessionID) as session_count, avg(ts_diff_seconds) as average_seconds_to_complete from joined group by 1
+
