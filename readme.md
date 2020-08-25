@@ -13,7 +13,7 @@ To get started
 - $ python pull.py
 
 ### Step 3: visualise results
-- $ python visualise
+- $ python visualise.py
 
 ### Step 4: Analyse results in app/Resources
 - Data: BTC_Alpha.csv
