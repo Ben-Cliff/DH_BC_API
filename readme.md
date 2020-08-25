@@ -5,11 +5,11 @@
 
 To get started 
 
-### Step 1: Dependancies
-- Install dependencies in requirements.txt
+### Step 1: Install Dependancies
+- $ pip install -r requirements.txt
 
 ### Step 2: pull data
-- cd /DH_BC_API/Alpha Vantage API/app
+- $ cd /DH_BC_API/Alpha Vantage API/app
 - $ python pull.py
 
 ### Step 3: visualise results
